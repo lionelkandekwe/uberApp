@@ -8,7 +8,6 @@ mapboxgl.accessToken =
 const Map = () => {
 
     useEffect(() => {
-    
         const map = new mapboxgl.Map({
         container: "map",
         style: 'mapbox://styles/mapbox/streets-v11',
@@ -16,14 +15,6 @@ const Map = () => {
         zoom: 7.30,
         });
         });
-
-        // var map = new mapboxgl.Map({
-  //   container: 'YOUR_CONTAINER_ELEMENT_ID',
-  //   style: 'mapbox://styles/mapbox/streets-v11',
-  //style: 'mapbox://styles/drakosi/ckvcwq3rwdw4314o3',
-  //  center: [30.0513, -1.9350],
-  //   zoom:,
-  //   });
   return <Wrapper id='map'></Wrapper>;
 };
 

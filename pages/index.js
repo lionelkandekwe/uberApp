@@ -11,7 +11,7 @@ export default function Home() {
        <UberLogo src="https://i.ibb.co/84stgjq/uber-technologies-new-20218114.jpg"/>
        <Profile>
          <Name>Lionel Kandekwe</Name>
-         <UserImage src=""/>
+         <UserImage src="https://media.istockphoto.com/photos/smiling-indian-business-man-working-on-laptop-at-home-office-young-picture-id1307615661?b=1&k=20&m=1307615661&s=170667a&w=0&h=Zp9_27RVS_UdlIm2k8sa8PuutX9K3HTs8xdK0UfKmYk="/>
        </Profile>
        
      </Header>

@@ -1,27 +1,32 @@
-import { useEffect } from "react"
+import { useState,useEffect } from "react"
+import { useRouter } from 'next/router';
 import Map from "./components/Map"
 import tw from "tailwind-styled-components"
 
 const Confirm = () => {
-  const getPickupCoordinates = () => {
-    const pickup = "Nyagatare"
+
+  const router = useRouter();
+  const{pickup,dropoff}=router.query
+
+  const[pickupCoordinates,setPickupCoordinates]= useState()
+  const[dropoffCoordinates,setDropoffCoordinates]= useState()
+
+  const getPickupCoordinates = (pickup) => { 
     fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${pickup}.json?` +
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${pickup}.json?`+
         new URLSearchParams({
           access_token:
             "pk.eyJ1Ijoia2FuZGVrd2UiLCJhIjoiY2t5cG5mYzRuMGJoOTJvbW1vN2Q5MnNwciJ9.--a7EhJILhZ-LRgtjWTloQ",
           limit: 1,
         })
     )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Pickup Location: " + data.features[0].place_name)
-        console.log(data.features[0].center)
+      .then(response => response.json())
+      .then((data) => {  
+        setPickupCoordinates(data.features[0].center)
       })
   }
 
-  const DropoffCoordinates = () => {
-    const dropoff = "Kigali"
+  const getDropoffCoordinates = (dropoff) => {
     fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${dropoff}.json?` +
         new URLSearchParams({
@@ -30,21 +35,23 @@ const Confirm = () => {
           limit: 1,
         })
     )
-      .then((response) => response.json())
+      .then(response => response.json())
       .then((data) => {
-        console.log("Dropoff location: " + data.features[0].place_name)
-        console.log(data.features[0].center)
+        setDropoffCoordinates(data.features[0].center)
       })
   }
 
   useEffect(() => {
-    getPickupCoordinates()
-    DropoffCoordinates()
-  }, [])
+    getPickupCoordinates(pickup);
+    getDropoffCoordinates(dropoff);
+  }, [pickup,dropoff])
 
   return (
     <Wrapper>
-      <Map />
+      <Map
+      pickupCoordinates={pickupCoordinates}
+      dropoffCoordinates={dropoffCoordinates}
+      />
       <RideContainer>Ride Selector confirm Button</RideContainer>
     </Wrapper>
   )
